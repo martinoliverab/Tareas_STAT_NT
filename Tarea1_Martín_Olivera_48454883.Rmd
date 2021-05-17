@@ -2,11 +2,11 @@
 title: "Tarea 1 - Martín Olivera - CI. 4845488-3 "
 author: "STAT_NT"
 date: "7/5/2021"
-output: pdf_document
+output: html_document
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = TRUE) 
 ```
 
 \newcommand{\bs}[1]{\boldsymbol{#1}}

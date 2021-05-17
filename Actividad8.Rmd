@@ -1,9 +1,10 @@
 ---
 title: "Actividad Individual 8"
-author: "Martin Olivera - CI 4845488-3"
-date: ""
+author: "Martín Olivera - CI 4845488-3"
+date: "17/5/2021"
 output: pdf_document
 ---
+
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
