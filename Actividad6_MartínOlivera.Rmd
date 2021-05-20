@@ -5,6 +5,8 @@ date: "8/5/2021"
 output: pdf_document
 ---
 
+\newcommand{\m}{\ \newline\textcolor{blue}{Comentario: }\textcolor{red}}
+
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
@@ -26,6 +28,8 @@ ggplot(mpg, aes(hwy, cty)) + geom_point(alpha = 1/3) + theme(aspect.ratio = 1) +
   labs(x = "Millas de ruta por galón" , y = "Número de cilindros")
 ```
 Dada la existencia del problema del sobreploteo, se propone diferenciar la cantidad de observaciones usando las transparencias con alpha=1/3, es decir, donde cada observación sea 1/3 del color del punto. Así, los puntos más oscuros resultan de mayor cantidad de observaciones en esa posición. Aún así se puede interpretar que se mantiene la relación lineal positiva (y sin demasiada variabilidad) entre el número de cilindros de los autos y la cantidad de millas por galon de fuel consumido. Observando este gráfico los valores estan concentrados en valores menores a 30 millas por galon y 20 cilindros. Aunque hay algunos valores aislados, no parecen tener carácter de outlier ni de observación influyente. 
+
+\m{"no parecen tener carácter de outlier" según que? Aveces mejor decir menos que más y errarle.}
 
 
 ```{r, echo = TRUE, fig.width = 5, fig.height = 5, fig.align = "left", fig.cap = "Nube de puntos (scatterplot) entre hwy y cty", warning=FALSE, message=FALSE}
@@ -54,3 +58,4 @@ ggplot(mpg, aes(x=hwy, y=cty, colour = class)) + geom_point() + theme(aspect.rat
 
 De lo anterior se puede observar que nuevamente midsize y compact contienen sus datos en niveles intermedios de las variables, mientras que subcompact toma valores medios y altos de las variables. Por útlimo las restantes clases toman bajos valores de la cantidad de millas por galon y el número de cilindros que tiene ese modelo. 
 
+\m{Muy buen trabajo. A mejorar: revisar la ortografía (por favor) y cuidado en las interpretaciones (pero excelente por realizarlas!).}

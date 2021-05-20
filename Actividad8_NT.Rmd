@@ -5,7 +5,7 @@ date: "17/5/2021"
 output: pdf_document
 ---
 
-
+\newcommand{\m}{\ \newline\textcolor{blue}{Comentario: }\textcolor{red}}
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
@@ -53,6 +53,7 @@ Hay 5 autos bajo este filtro.
 filtro3 <- select(mpg, c(displ, hwy))
 filtro3
 ```
+\m{No es necesario concatenar.}
 
 4. Seleccioná desde la variable `trans` hasta la variable `hwy`.
 
@@ -67,8 +68,8 @@ filtro4
 filtro5 <- filter(mpg, manufacturer == "camry" | manufacturer == "toyota")
 filtro5b <- select(filtro5, c(manufacturer, model, year, cyl, cty))
 filtro5b <- as.data.frame(filtro5b)
-
 ```
+\m{Correcto pero NO hacerlo de esta forma. No es necesario crear objetos intermedios.}
 
 6. Calcula el rendimiento promedio en ciudad para cada marca (`manufacturer`). ¿Cuál es el mejor rendimiento en ciudad? y el peor ?  
 
@@ -81,6 +82,8 @@ mean_cty = mean(cty, na.rm = TRUE)
 
 ```
 El mejor rendimiento en ciudad es el de los autos marca Hyundai, mientras que el de peor rendimiento es el de Lincoln
+
+\m{Usar min y max para obtener el mejor y el peor.}
 
 7. Para cada marca: calcula el rendimiento promedio en ciudad, el error estandard de la media, y el rango
 
@@ -114,6 +117,7 @@ mean_cty = mean(cty, na.rm = TRUE)
 )  
 
 ```
+\m{Correcto el resultado pero esto debe ser hecho en un solo data.frame no en dos. Ver solución.}
 
 
 9. Calcular el rendimiento promedio en carretera (`hwy`), para 3 marcas seleccionadas aleatoriamente y ordena el resultado de menor a mayor
@@ -125,6 +129,8 @@ summarise(
 mean_hwy = mean(hwy, na.rm = TRUE)
 )
 ```
+
+\m{Agregar set.seed}
 
 10. Crear una nueva variable que transforme  `hwy` (millas por galón) en litros/100 km.
 Primero tenés que saber la conversión de galones a litros y de millas a kilómetros.
@@ -139,4 +145,4 @@ mutate(mpg, hwy = (3.78541*100)/(1.60934*hwy))
 
 ```
 
-
+\m{Muy buen trabajo Martín. A mejorar: El código debe ser más ordenado en especial estar identado para ser más legible.}

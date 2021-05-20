@@ -5,6 +5,8 @@ output:
   html_document: default
 ---
 
+\newcommand{\m}{\ \newline\textcolor{blue}{Comentario: }\textcolor{red}}
+
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
@@ -105,3 +107,5 @@ ggplot(propina, aes(x= dia, fill= dia)) + geom_bar() + labs(x = "Día", fill="Fu
 ggplot(propina, aes(x= dia, fill= dia)) + geom_bar() + labs(x = "Día", fill="Fumador" ) + coord_flip ()
 ```
 
+
+\m{El archivo no compila, se resta puntos por eso. Vamos a ser cada vez más exigente en ese sentido. El código es totalmente correcto, muy buen trabajo en ese sentido, pero es ilegible, ordenarlo.}
