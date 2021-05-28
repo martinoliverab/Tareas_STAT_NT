@@ -1,5 +1,5 @@
 ---
-title: "Tarea individual 2"
+title: "Tarea individual 2 - Martín Olivera - CI. 4.845.488-3"
 author: "Entregar el Viernes 26 de Abril"
 date: ""
 output:
