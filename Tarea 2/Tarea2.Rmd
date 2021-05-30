@@ -3,9 +3,13 @@ title: "Tarea individual 2 - Martín Olivera - CI. 4.845.488-3"
 author: "Entregar el Viernes 26 de Abril"
 date: ""
 output:
-  pdf_document: default
+  pdf_document:
+    latex_engine: xelatex
   fig_caption: true
 ---
+
+\newcommand{\m}{\ \newline\textcolor{blue}{Comentario: }\textcolor{red}}
+
 ```{r setup, include = FALSE}
 knitr::opts_chunk$set(echo = TRUE, tidy.opts = list(width.cutoff = 50), tidy = TRUE, fig.pos = 'h', out.extra = '')
 ```
@@ -62,7 +66,7 @@ vc1 + geom_smooth(method = "lm")
 
 1. Hacer un gráfico de dispersión que tenga en el eje `y` `year` y en el eje `x`  `lifeExp`, los puntos deben estar coloreados por la variable `continent`. Para este plot ajustá una recta de regresión para cada continente sin incluir las barras de error. Las etiquetas de los ejes deben ser claras y describir las variables involucradas. Incluir un `caption` en la Figura con algún comentario de interés que describa el gráfico. El resto de los comentarios del graáfico se realizan en el texto.
 
-```{r, echo = TRUE, fig.width = 5, fig.height = 5, fig.align = "left", fig.cap = "Figura 1: Dispersión de la esperanza de vida por año, según continente.", warning=FALSE, message=FALSE}
+```{r, echo = TRUE, fig.width = 5, fig.height = 5, fig.align = "left", fig.cap = "Dispersión de la esperanza de vida por año, según continente.", warning=FALSE, message=FALSE}
 ggplot(gapminder, aes(lifeExp, year, colour = continent)) + geom_point() + theme(aspect.ratio = 1) + geom_smooth(method= "lm", se=FALSE)
   labs(x = "Life expectancy" , y = "Year")
 ```
@@ -71,11 +75,13 @@ La Figura 1 muestra evidencia a favor de que la esperanza de vida en países afr
 
 2. Omitir la capa de  `geom_point()` del gráfico anterior. Las lineas aún aparecen aunque los puntos no. ¿Porqué sucede esto? 
 
-```{r, echo = TRUE, fig.width = 5, fig.height = 5, fig.align = "left", fig.cap = "Figura 2: Esperanza de vida por año, según continente.", warning=FALSE, message=FALSE}
+```{r, echo = TRUE, fig.width = 5, fig.height = 5, fig.align = "left", fig.cap = "Esperanza de vida por año, según continente.", warning=FALSE, message=FALSE}
 ggplot(gapminder, aes(lifeExp, year, colour = continent)) + theme(aspect.ratio = 1) + geom_smooth(method= "lm", se=FALSE)
   labs(x = "Life expectancy" , y = "Year")
 ```
 Al quitar el geom_point omito que se imprima la nube de puntos asociada a la relación entre la variable year y lifeExp, sin embargo, la relación aún existe y bajo la capa geom_smooth se grafica solo la recta de regresión asociada a la relación entre las variables, nuevamente, discriminando por continentes.
+
+\m{Correcto! En estos ejercicios me equívoque en una pregunta del foro respecto si los ejes están bien especificados. Matemáticamente esta bien, pero se analizar al revez (y el análisis que hiciste es correcto), es decir en el eje y se gráfica la esperanza de vida y en el eje x los años, en el entendido que la variable a explicar es la esperanza de vida.}
 
 3. El siguiente es un gráfico de dispersión entre `lifeExp` y `gdpPercap`  coloreado por la variable `continent`. Usando como elemento estético color (`aes()`) nosotros podemos distinguir los distintos continentes usando diferentes colores de similar manera usando forma (`shape`).
 
@@ -85,30 +91,36 @@ Al quitar el geom_point omito que se imprima la nube de puntos asociada a la rel
 El gráfico anterior está sobrecargado, ¿de que forma modificarías el gráfico para que sea más clara la comparación para los distintos continentes y porqué?
 Las etiquetas de los ejes deben ser claras y describir las variables involucradas. Comentá alguna característica interesante que describa lo que aprendes viendo el gráfico.
 
-```{r, echo = TRUE, fig.width = 5, fig.height = 5, fig.align = "left", fig.cap = "Figura 3: Diagrama de dispersión entre el producto interno bruto por habitante y la esperanza de vida para todo el período, por continente.", warning=FALSE, message=FALSE}
+```{r, echo = TRUE, fig.width = 5, fig.height = 5, fig.align = "left", fig.cap = "Diagrama de dispersión entre el producto interno bruto por habitante y la esperanza de vida para todo el período, por continente.", warning=FALSE, message=FALSE}
 ggplot(gapminder, aes(gdpPercap, lifeExp, colour = continent)) + geom_point(alpha=1/3) + theme(aspect.ratio = 1) 
   labs(x = "Gross Domestic Product, per capita", y = "Life expectancy")
 ```
 
 Al graficar las dos variables para todo el período, cada país registra un punto en el plano para cada año, sobrecargandolo, entonces con la opción alpha = 1/3 en geom_point, es posible ilustrar cada punto como 1/3 de la "saturación" del color para poder visualizar de mejor forma la la masa de puntos que se ilustra en la figura, denotando mayor cantidad de puntos cuanto más nítido sea el color.
-Respecto a lo que se puede visualizar de la Figura 3: se describe la relación existente en la esperanza de vida, medida en años y el producto interno bruto del país, por habitante, discriminando por continente. A partir del gráfico se puede observar que aquellos países pertenecientes a Europa con un ingreso per cápita mayor, registran mayores niveles de esperanza de vida. En oposición, África, presenta bajos niveles de ingreso per cápita y puede asociarse a una baja esperanza de vida. En niveles intermedios se encuentra el resto de los continentes. Pero a priori, se podría decir que a mayor ingreso de los países mayor sería la esperanza de vida, lo cual se relaciona a una mayor disponibilidad de recursos para destinar a la salud y el buen vivir y a nivel macroeconómico a un mayor bienestar general de la economía. 
+Respecto a lo que se puede visualizar de la Figura 3: se describe la relación existente en la esperanza de vida, medida en años y el producto interno bruto del país, por habitante, discriminando por continente. A partir del gráfico se puede observar que aquellos países pertenecientes a Europa con un ingreso per cápita mayor, registran mayores niveles de esperanza de vida. En oposición, África, presenta bajos niveles de ingreso per cápita y puede asociarse a una baja esperanza de vida. En niveles intermedios se encuentra el resto de los continentes. Pero a priori, se podría decir que a mayor ingreso de los países mayor sería la esperanza de vida, lo cual se relaciona a una mayor disponibilidad de recursos para destinar a la salud y el buen vivir y a nivel macroeconómico a un mayor bienestar general de la economía.
+
+\m{Muy bien el análisis y gráfico pero FALTA hacer un facet para para que no haya sobreploteo y se puede modificar la escala del eje x (log) o dejarla libre, además recordar que aquí se grafican todos los años en conjunto. Y esto va más allá del gráfico y podrían ser hipótesis a plantear (ojo van bien, y tiene mucho sentido pero esto es un análisis exploratorio): "Pero a priori, se podría decir que a mayor ingreso de los países mayor sería la esperanza de vida (OK, aunque acá un componente temporal que estamos obviando), lo cual se relaciona (podría!) a una mayor disponibilidad de recursos para destinar a la salud y el buen vivir y a nivel macroeconómico a un mayor bienestar general de la economía" (Primero habría que definir que es bienestar, segundo mayor pib es mayor bienestar? Bajo que indicador?)}
 
 4. Hacer un gráfico de lineas que tenga en el eje `x` `year` y en el eje `y`  `gdpPercap` para cada continente en una misma ventana gráfica. En cada continente, el gráfico debe contener una linea para cada país a lo largo del tiempo (serie de tiempo de `gdpPercap`). Las etiquetas de los ejes deben ser claras y describir las variables involucradas. Incluir un `caption` en la Figura con algún comentario de interés que describa el gráfico.
 
-```{r, echo = TRUE, fig.width = 5, fig.height = 5, fig.align = "left", fig.cap = "Figura 4: Producto interno bruto por habitante (1952-2007) para cada pais, segun continente.", warning=FALSE, message=FALSE}
+```{r, echo = TRUE, fig.width = 5, fig.height = 5, fig.align = "left", fig.cap = "Producto interno bruto por habitante (1952-2007) para cada pais, segun continente.", warning=FALSE, message=FALSE}
 ggplot(gapminder, aes(year, gdpPercap)) + geom_line(aes(group = country)) + facet_wrap(~ continent) +
   labs(x = "Years", y = "Gross Domestic Product, per capita")
 ```
-La Figura anterior da cuenta de la dinámica del producto interno bruto por habitante para el período 1952-2007 para cada país, discriminando por continente. En primer lugar se observa que en el caso de Europa, los niveles de producto son superiores en promedio a los observados en el resto de los continentes. En oposición, los niveles de actividad de los países africanos parecen ubicarse en niveles reducidos. Un comentario distintivo del caso de las Américas y Asia es la variabilidad que existe entre los distintos países del continente en términos de sus niveles de actividad, dando cuenta de una mayor desigualdad en términos de ingreso entre los países de cada continente; cuestión que no parece observrse en los otros continentes. 
+La Figura anterior da cuenta de la dinámica del producto interno bruto por habitante para el período 1952-2007 para cada país, discriminando por continente. En primer lugar se observa que en el caso de Europa, los niveles de producto son superiores en promedio a los observados en el resto de los continentes. En oposición, los niveles de actividad de los países africanos parecen ubicarse en niveles reducidos. Un comentario distintivo del caso de las Américas y Asia es la variabilidad que existe entre los distintos países del continente en términos de sus niveles de actividad, dando cuenta de una mayor desigualdad en términos de ingreso entre los países de cada continente; cuestión que no parece observarse en los otros continentes. 
+
+\m{Excelente gráfica y análisis. Para discutir: No están gráficados los promedios por continente, es mayor el promedio de Europa al de Ocianía? No es para nada claro. Por último, la 'desigualdad' en términos de ingreso no se observa en los otros continentes? Más que desigualdad estamos hablando de variabilidad y tampoco podemos inferir eso del gráfico en especial por la escala de las variables. Si liberamos el eje y (scales = "free_y") qué se observa? Cómo es el desvío por año por continente del pib per cápita?}
 
 5. Usando los datos `gapminder` seleccione una visualización que describa algún aspecto de los datos que no exploramos. Comente algo interesante que se puede aprender de su gráfico.
 
-```{r, echo = TRUE, fig.width = 5, fig.height = 5, fig.align = "left", fig.cap = "Figura 5: Diagrama de dispersión entre la esperanza de vida y el nivel poblacional de los países, según continente (1952-2007).", warning=FALSE, message=FALSE}
+```{r, echo = TRUE, fig.width = 5, fig.height = 5, fig.align = "left", fig.cap = "Diagrama de dispersión entre la esperanza de vida y el nivel poblacional de los países, según continente (1952-2007).", warning=FALSE, message=FALSE}
 ggplot(gapminder, aes(pop, lifeExp)) + geom_point(alpha=1/3) + theme(aspect.ratio = 1) + facet_wrap( ~ continent) +
   labs(x = "Population", y = "Life expectancy")
 ```
 
 De la Figura 5 se puede extraer algun comentario adicional no trabajado hasta ahora: la relación entre la esperanza de vida y la población de los países. Se puede distinguir en primer lugar que en los casos de las Américas y Asia, existiría alguna relación de asociación positiva entre la esperanza de vida y el nivel poblacional. Esto implicaría que la población no solo aumentaría sino también que se observaría un proceso de envejecimiento poblacional. A priori esto sería contraproducente en términos de lo que se conoce como "Capacidad de Carga" de los países (Verhulst, 1838). Esto implicaría la necesidad de mayores recursos para combatir el potencial agotamiento del bono demográfico y evitar perjuicios en el bienestar social a traves de reducciones del ingreso disponible de la población debido a la mayor población y en sintonía a una mayor cantidad de población dependiente (mayores de edad, asociados a mayores niveles de esperanza de vida). Esta observación podría generaizarse en Europa, aunque de forma no tan clara. En el caso africano, aunque la relación no parece del todo clara, se podría especular a partir de la Firgura 5 que a mayor nivel poblacional, la esperanza de vida no aumentaría. Esto puede verse explicado por altas tasas de natalidad y de mortalidad, generando escacez de recursos para la población perjudicando los niveles de vida. 
+
+\m{Excelente nuevamente en especial el final donde planteas posibles hipótesis, muy bien Martín! A mejorar la escala x podría quedar en log o liberarse por continente porque dado los comentarios realizados y el objetivo buscado se quiere analizar por continente entonces quedaría mejor poder hacer "un zoom" en cada continente puesto que los valores son muy diferentes en el caso de Asia y no permiten ver que sucede con el resto. Por otro lado, acá nuevamente tenes todos los años en el mismo gráfico. Podrías analizar esto para ciertos años particulares o darle color (continuo) a los años (o por lusto o décadas). No sabemos a partir de este gráfico si los países tienen o no tienen bono demográfico.}
 
 ## Ejercicio 2
 
@@ -149,6 +161,8 @@ labs(x = "Tipo de tren", y = "Porcentaje", title="Distribución según tipo de t
 ```
 
 En particular, sumado al comentario de la Figrua 6, la Figura 8 muestra que solo el 10% de los trenes son del tipo "rear wheel drive", luego los otros dos tipos de trenes se distribuyen el restante 90% de forma similar
+
+\m{Muy bien. Ordenar las barras de forma descendente y darle nombre explicativo a las etiquetas.}
 
 ## Ejercicio 3
 
@@ -191,6 +205,7 @@ datos %>% filter(fuente  !=  "TOTAL" & fuente != "S_C" & fuente !="I_E") %>% gro
 Selecciones para dibujar solamente las 5 fuentes que a lo largo de los años tienen una emisión media mayor que el resto (respuesta de la pregunta 5).
 Las etiquetas de los ejes deben ser claras y describir las variables involucradas. Incluir un `caption` en la figura con algún comentario de interés que describa el gráfico.
 
+\m{Los ejercicios anteriores, excelente. Este ejercicio no se realiza.}
 
 
 6. Relplique el siguiente gráfico usando `ggplot2`.
@@ -224,6 +239,8 @@ datos%>% filter(fuente == "TOTAL") %>% group_by(año) %>% ggplot(aes(x = año, y
 
 ```
 Se observa que en tendencia las emisiones de CO2 son crecientes a lo largo del tiempo denotando los años "records". Por años records se consideran aquellos años donde las emisiones son superiores al período siguiente. Por ejemplo, suelen utilizarse las sucesiones de records en general, en el estudio de la teoría de la probabilidad. 2012, resulta el año con mayor nivel de emisiones de CO2 mientras que se observa una brusca caida luego de 1999. Esto puede deberse al tratado que llevó al protocolo de Kyoto en 1997 con el objetivo de mitigar las emisiones de gases de efecto invernadero. 
+
+\m{Muy buen análisis. El único punto es que no se marcan los que son mayores al valor siguiente, notar que eso no se cumple. Si se va marcando el valor máximo (local) a medida que pasa el tiempo, cuando hay un nuevo máximo queda en rojo.}
 
 \newpage
 
@@ -298,14 +315,14 @@ A partir de los datos vinculados al abandono escolar, es de interés entender qu
 3) ¿Se puede observar alguna relación entre la proporción de estudiantes que abandonan sus estudios con la situación sociodemográfica del centro de estudios? \\
 
 
-```{r, echo = TRUE, fig.width = 5, fig.height = 5, fig.align = "left", fig.cap = "Figura 11: Distribución de abandonos por sexo, según departamento.", warning=FALSE, message=FALSE}
+```{r, echo = TRUE, fig.width = 5, fig.height = 5, fig.align = "left", fig.cap = "Distribución de abandonos por sexo, según departamento.", warning=FALSE, message=FALSE}
 datos %>% filter(Abandono == 1) %>% ggplot(aes(x = Abandono, y = prop.table(stat(count)), fill = Sexo)) + geom_bar()  + scale_y_continuous(labels = scales::percent) + theme(axis.text.x=element_blank(),  axis.ticks.x=element_blank())+ scale_fill_brewer(palette = "Dark2") + facet_wrap(~ nombre_departamento) +
 labs(x = "Abandono", y = "Proporción de abandono por sexo", title="Distribución de abandonos por sexo, según departamento")
 
 ```
 En primer lugar se observa que Montevideo y Canelones son aquellos departamentos de Uruguay con mayor abandono de estudiantes, aunque a nivel general de todo el país parece existir un bajo nivel de abandono. Cuando se discrimina por sexo, se puede vislumbrar que la situación de abandono está más presenta en hombres que en mujeres, en el general de los departamenteos. 
 
-```{r, echo = TRUE, fig.width = 5, fig.height = 5, fig.align = "left", fig.cap = "Figura 12: Distribución de abandonos por sexo, según departamento.", warning=FALSE, message=FALSE}
+```{r, echo = TRUE, fig.width = 5, fig.height = 5, fig.align = "left", fig.cap = "Distribución de abandonos por sexo, según departamento.", warning=FALSE, message=FALSE}
 
 
 ggplot(datos, aes(x=inasistencias, y=Abandono , colour = Sexo)) + geom_point() + theme(aspect.ratio = 1) + geom_smooth(method= "lm", se=TRUE)+
@@ -320,8 +337,8 @@ En suma, si se logra visualizar un impacto de las inasistencias en la propensió
 
 
 
-```{r, echo = TRUE, fig.width = 5, fig.height = 5, fig.align = "left", fig.cap = "Figura 13a: Distribución de abandonos por sexo, según departamento.", warning=FALSE, message=FALSE}
-as.factor(datos$cl)
+```{r, echo = TRUE, fig.width = 5, fig.height = 5, fig.align = "left", fig.cap = "Distribución de abandonos por sexo, según departamento.", warning=FALSE, message=FALSE}
+# as.factor(datos$cl)
 
 
 ggplot(datos, aes(x = Abandono)) + geom_bar()  + scale_fill_brewer(palette = "Dark2")  + facet_wrap(~ cl)+
@@ -335,8 +352,8 @@ La visualización anterior permite reconocer si la condición de abandono a un c
 
 
 
-```{r, echo = TRUE, fig.width = 5, fig.height = 5, fig.align = "left", fig.cap = "Figura 13b: Distribución de abandonos por sexo, según departamento.", warning=FALSE, message=FALSE}
-as.factor(datos$cl)
+```{r, echo = TRUE, fig.width = 5, fig.height = 5, fig.align = "left", fig.cap = "Distribución de abandonos por sexo, según departamento.", warning=FALSE, message=FALSE}
+# as.factor(datos$cl)
 
 
 datos %>% filter(Abandono==1) %>% ggplot(aes(x = Abandono)) + geom_bar()  + scale_fill_brewer(palette = "Dark2")  + facet_wrap(~ cl)+
@@ -345,9 +362,7 @@ labs(x = "Abandono", y = "Proporción de abandono por cluster", title="Distribuc
 
 ```
 
-De lo anterior se observa que los clusters 1, 3 y 5 son aquellos con mayor abandono estudiantil. Sin embargo, al no disponer de mayor información sobre las características de cada cluster, no se podría interpretar en demasía la existencia de alguna relación. Suponiendo que las condiciones 1 y 5 son extremos en términos de situación sociodemográfica, no parecería existir mayores diferencias entre ellos en cuanto al abandono y por lo tanto, se podría especular en que la situación sociodemográfica de la institución no afectaría sustantivamente la condición de abandono de un estudiante. \\
+De lo anterior se observa que los clusters 1, 3 y 5 son aquellos con mayor abandono estudiantil. Sin embargo, al no disponer de mayor información sobre las características de cada cluster, no se podría interpretar en demasía la existencia de alguna relación. Suponiendo que las condiciones 1 y 5 son extremos en términos de situación sociodemográfica, no parecería existir mayores diferencias entre ellos en cuanto al abandono y por lo tanto, se podría especular en que la situación sociodemográfica de la institución no afectaría sustantivamente la condición de abandono de un estudiante.
 
-
-
-
-
+\pagebreak
+\m{Muy buen trabajo, excelente nivel de análisis, de gráficas y planteamiento de hipótesis sobre distintas visualizaciones. Previamente realicé algunos comentarios a considerar en algunas interpretaciones y graficos.}
