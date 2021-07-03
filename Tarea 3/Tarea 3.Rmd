@@ -1,0 +1,111 @@
+---
+title: "Tarea 3"
+author: "Martín Olivera"
+date: "29/6/2021"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Ejercicio 1
+
+## 1
+
+```{r, eval = FALSE}
+ui <- fluidPage(titlePanel("Propina"),
+                sidebarLayout(sidebarPanel(
+                  selectInput('color_variable','Variable en color',c("sexo", "fuma", "dia", "momento")),
+                  mainPanel(tabsetPanel(
+                    tabPanel("Bivar", h2("Diagrama de dispersión",align = "center"),plotOutput("scat")),
+                    tabPanel("Univar"))))))
+```
+
+
+## 2
+
+```{r, eval = FALSE}
+  datos <- reactiveValues()
+  observe({datos$reactive_color_variable <- input$color_variable})
+  observe({datos$reactive_color_variable <- input$dig})
+reactive_tab <- reactive({
+      as.data.frame(propinas) %>% group_by(datos$reactive_color_variable) %>% summarise(media_propina = mean(propina),sd_propina = sd(propina),media_total = mean(total),sd_total = sd(total)) %>% mutate(across(where(is.double),function (x) {round(x, digits = 3)})) %>% datatable()})
+output$tab <- renderDT({reactive_tab()})
+
+```
+
+
+##2.1.
+
+
+```{r, eval = FALSE}
+ui <- fluidPage(titlePanel("Propina"),
+                sidebarLayout(sidebarPanel(
+                  selectInput('color_variable','Variable en color',c("sexo", "fuma", "dia", "momento")),
+                  selectInput('dig', 'Cantidad de decimales',c(0, 1, 2))),
+                  mainPanel(tabsetPanel(
+                    tabPanel("Bivar",h2("ScatterPlot",align = "center"),plotOutput("scatter"),dataTableOutput("tab")),
+                    tabPanel("Univar")))))
+```
+
+## 3
+
+```{r, eval = FALSE}
+ui <- fluidPage(
+          mainPanel(tabsetPanel(
+                    tabPanel("Univar",h2("Gráfico de Barras", align = "center"),plotOutput("bar"))))))
+server <- function(input, output){
+output$bar <- renderPlot({ggplot(propinas, aes(x=.data[[input$color_variable]])) + geom_bar() + labs(y = "Cantidad")})}
+```
+
+## 4
+
+```{r, eval = FALSE}
+
+ui <- fluidPage(
+  titlePanel("Propina"),
+  sidebarLayout(
+    sidebarPanel(
+      actionButton("runif", "Mostrar"),
+      actionButton("reset", "Ocultar"))))
+
+server <- function(input, output){
+  datos <- reactiveValues()
+  observe({datos$reactive_color_variable <- input$color_variable})
+  observe({datos$reactive_color_variable <- input$dig})
+  salida <- reactiveValues(data = NULL)
+  observeEvent(input$runif, { 
+    salida$plot1 <-ggplot(data = propinas,aes(x = total, y = propina,colour = .data[[input$color_variable]]))+geom_point() + theme(aspect.ratio = 1) + scale_x_continuous(name ="Total cuenta") +scale_y_continuous(name = "Propina")
+    salida$plot2 <-ggplot(propinas, aes(x=.data[[input$color_variable]])) + geom_bar() + labs(y = "Cantidad")
+    salida$tab <- reactive({as.data.frame(propinas) %>%group_by(datos$reactive_color_variable) %>%summarise(media_propina = mean(propina),sd_propina = sd(propina),media_total = mean(total),sd_total = sd(total)) %>% mutate(across(where(is.double),function (x) {round(x, digits = 3)})) %>% datatable()})})
+  observeEvent(input$reset, {
+    salida$plot1 <- NULL
+    salida$plot2 <- NULL
+    salida$tab <- NULL})    
+  output$scat <- renderPlot({
+    if (is.null(salida$plot1)) 
+      return()
+    plot(salida$plot1)})  
+  output$bar <- renderPlot({
+    if (is.null(salida$plot2)) 
+      return()
+    plot(salida$plot2)})
+  output$tab <- renderDT({
+    if (is.null(salida$tab)) 
+      return()
+    print(salida$tab())})}
+```
+
+
+
+## 5
+
+```{r, eval = FALSE}
+
+## link de shinyapps.io: https://martinoliverab.shinyapps.io/tarea_3/
+
+```
+
+
+
