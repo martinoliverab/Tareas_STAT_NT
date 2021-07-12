@@ -43,6 +43,15 @@ server <- function(input, output){
 shinyApp(ui, server)
   
 
+# No se observa el gráfico de dispersión.
+# No se modifica la tabla correctamente, no funciona la selección de decimales.
+# No son necesario los print, de hecho no se recomienda. En vez de eso 
+# se debe retornar el objeto escrbiendo su nombre o usando return.
+# No se debe usar la función plot, menos con un objeto ggplot.
+# Identar el código
+# Revisar solución.
 
+
+# Puntaje 5/10
 
 

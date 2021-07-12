@@ -42,9 +42,9 @@ server <-
         
         grafico <- reactive(
             if (input$distri=="Gamma" | input$distri=="Normal"){graf<-data.frame(x=datos()) %>% ggplot(aes(x)) + geom_histogram(bins=input$bins)
-            print(graf)} else {
+            graf} else {
                 graf<-datos() %>% ggplot(aes(x=value)) + geom_histogram(bins=input$bins) + facet_wrap(vars(tipo))
-                print(graf)})
+                graf})
         
         
         output$hist <- renderPlot({grafico()})
@@ -61,3 +61,5 @@ server <-
 
 shinyApp(ui, server)
 
+# Saqué el print para que queden bien conectadas las tabsetPanel
+# Puntaje 9/10
